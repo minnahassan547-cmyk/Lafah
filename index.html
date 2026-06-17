@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>لفة | جرعتك اليومية من الأفكار والنكت والمعلومات الغريبة</title>
+<meta name="description" content="لفة: تطبيق بسيط يعطيك في كل لفّة فكرة، نكتة، معلومة غريبة، تحدي قصير، أو رد جاهز للمواقف. اضغط وشوف ما اختاره لك القدر.">
+<meta property="og:title" content="لفة">
+<meta property="og:description" content="جرعتك اليومية من الأفكار، النكت، المعلومات الغريبة، التحديات، والردود الجاهزة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://minnahassan547-cmyk.github.io/Lafah/">
+<meta property="og:image" content="https://minnahassan547-cmyk.github.io/Lafah/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="لفة">
+<meta name="twitter:description" content="جرعتك اليومية من الأفكار، النكت، المعلومات الغريبة، التحديات، والردود الجاهزة.">
+<meta name="twitter:image" content="https://minnahassan547-cmyk.github.io/Lafah/og-image.png">
+<meta name="theme-color" content="#1b1b23">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700;900&display=swap');
+
+:root{
+  --bg:#1b1b23;
+  --paper:#f4ecda;
+  --paper-shadow:#e3d8b8;
+  --ink:#2b2118;
+  --gold:#e8a33d;
+  --gold-dark:#c9821f;
+  --muted:#9a93a6;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;height:100%;}
+body{
+  background:
+    radial-gradient(circle at 50% -10%, #25253250, transparent 60%),
+    repeating-linear-gradient(45deg, #ffffff05 0 2px, transparent 2px 6px),
+    var(--bg);
+  color:var(--ink);
+  font-family:'Tajawal', sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px 16px;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.app{
+  width:100%;
+  max-width:400px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+}
+
+header{display:flex; flex-direction:column; align-items:center; gap:6px;}
+.stamp{
+  width:74px;height:74px;border-radius:50%;
+  background:var(--gold);
+  border:3px dashed #ffffff55;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 0 var(--gold-dark), 0 10px 18px #00000060;
+}
+.stamp span{
+  font-family:'Lalezar', cursive;
+  font-size:30px;
+  color:var(--ink);
+  transform:translateY(2px);
+}
+header p{ margin:0; color:var(--muted); font-size:13px; letter-spacing:.3px; }
+
+.ticket-wrap{ width:100%; }
+.ticket{
+  --accent:#2C8C8C;
+  position:relative;
+  display:flex;
+  min-height:230px;
+  background:var(--paper);
+  border-radius:16px;
+  box-shadow:0 14px 0 var(--paper-shadow), 0 22px 30px #00000055;
+  overflow:hidden;
+  transition:transform .18s ease;
+}
+.ticket::before, .ticket::after{
+  content:""; position:absolute; width:26px;height:26px;
+  background:var(--bg); border-radius:50%; top:50%; transform:translateY(-50%); z-index:2;
+}
+.ticket::before{ left:-13px; }
+.ticket::after{ right:-13px; }
+
+.stub{
+  width:64px; flex-shrink:0; background:var(--accent);
+  display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+  padding:16px 0; border-left:2px dashed #ffffff70; transition:background .15s ease;
+}
+.stub .icon{ font-size:24px; }
+.stub .num{
+  font-family:'Tajawal'; font-weight:900; font-size:11px; color:#ffffffd0;
+  writing-mode:vertical-rl; letter-spacing:1px;
+}
+
+.ticket-main{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:10px; padding:22px 18px; }
+.cat-label{
+  display:inline-flex; align-self:flex-start; background:var(--accent); color:#fff;
+  font-size:12px; font-weight:700; padding:4px 12px; border-radius:999px; transition:background .15s ease;
+}
+.content-text{ font-size:clamp(16px, 4.6vw, 19px); line-height:1.6; font-weight:500; color:var(--ink); min-height:80px; }
+.content-text.placeholder{ color:#8a7f6a; }
+
+.spin-btn{
+  width:108px;height:108px; border-radius:50%; border:none; background:var(--gold);
+  box-shadow:0 8px 0 var(--gold-dark), 0 14px 22px #00000060;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  cursor:pointer; font-family:'Lalezar', cursive; font-size:24px; color:var(--ink);
+  transition:transform .08s ease, box-shadow .08s ease; user-select:none;
+}
+.spin-btn .tix{ font-size:20px; }
+.spin-btn:active{ transform:translateY(6px); box-shadow:0 2px 0 var(--gold-dark), 0 6px 12px #00000060; }
+.spin-btn:disabled{ opacity:.7; cursor:default; }
+
+.counters{ display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted); font-size:13px; }
+.counters b{ color:#cdb98a; }
+.counters .global{ font-size:12px; opacity:.8; }
+
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <div class="stamp"><span>لفة</span></div>
+    <p>افتح، لفّ، استمتع</p>
+  </header>
+
+  <div class="ticket-wrap">
+    <div class="ticket" id="ticket" data-cat="idle">
+      <div class="stub">
+        <div class="icon" id="stubIcon">🎟️</div>
+        <div class="num" id="stubNum">٠٠٠</div>
+      </div>
+      <div class="ticket-main">
+        <span class="cat-label" id="catLabel">جاهز؟</span>
+        <p class="content-text placeholder" id="contentText">اضغط "لفّ" تحت وخلّ القدر يختار لك شي حلو 🎲</p>
+      </div>
+    </div>
+  </div>
+
+  <button class="spin-btn" id="spinBtn">
+    <span class="tix">🎟️</span>
+    <span>لفّ</span>
+  </button>
+
+  <div class="counters">
+    <div>لفّتك رقم <b id="count">٠</b> اليوم</div>
+    <div class="global" id="globalCount">🌍 إجمالي لفّات الجميع: —</div>
+  </div>
+</div>
+
+<script>
+// ----- قاعدة المحتوى -----
+const categories = [
+  {
+    id:'idea', label:'فكرة', icon:'💡', color:'#2C8C8C',
+    items:[
+      'اكتب رسالة شكر لشخص أثر في حياتك ولم تشكره بعد.',
+      'جرّب طبخ وصفة لم تطبخها من قبل الليلة.',
+      'رتّب صور هاتفك أو شاشتك لمدة عشر دقائق فقط.',
+      'اتصل بصديق قديم لم تتحدث معه منذ شهر.',
+      'اكتب قائمة بخمس أشياء تتمنى تجربتها هذا العام.',
+      'غيّر ترتيب شيء صغير في غرفتك اليوم.',
+      'تعلّم خمس كلمات جديدة بلغة لا تعرفها.',
+      'صوّر غروب أو شروق الشمس من أقرب نافذة.',
+      'اكتب فكرة مشروع صغير ميزانيته صفر ريال.',
+      'اقرأ صفحة واحدة من كتاب لم تفتحه منذ مدة.',
+      'صوّر شيء بسيط حولك بزاوية غير متوقعة.',
+      'اكتب فقرة عن نفسك بعد عشر سنوات من الآن.',
+      'جرّب الكتابة بيدك الأخرى غير المعتادة لمدة دقيقة.',
+      'اعمل قائمة تشغيل أغاني تناسب مزاجك اليوم.',
+      'اسأل شخصًا قريبًا منك عن أجمل ذكرى له معك.',
+      'خصص خمس دقائق لتنظيف رسائل بريدك غير المهمة.',
+      'اكتب ثلاث صفات تحبها في نفسك.',
+      'ابحث عن كلمة جديدة واستخدمها اليوم في جملة.',
+      'خطط لرحلة خيالية لمكان لم تزره من قبل.',
+      'اكتب ملاحظة تحفيزية واتركها لشخص آخر يجدها.'
+    ]
+  },
+  {
+    id:'joke', label:'نكتة', icon:'😂', color:'#E1574A',
+    items:[
+      'ليش الكمبيوتر تعب؟ لأنه شغّال كل اليوم بدون "Break".',
+      'واحد سأل صاحبه: ليش دايم متأخر؟ قال: علشان الوقت يحس إنه مهم.',
+      'ليش السمكة ما تحب الرسائل؟ خايفة تنحبس في الشبكة.',
+      'واحد قال لصاحبه: عندي خبر سيئ وخبر أسوأ. قال: ابدأ بالأسوأ. قال: نسيت الخبر السيئ.',
+      'ليش الساعة ما تتشاجر مع أحد؟ لأنها دايم تحل الموضوع بالعدّ.',
+      'سألوا النملة: ليش تشتغلين بدون توقف؟ قالت: علشان ما أصير بطّالة.',
+      'واحد دخل مطعم وقال: عندكم صبر؟ قالوا: لا، بس عندنا فول وحمص.',
+      'ليش القمر ما يفلس أبدًا؟ لأنه دايم يرجع يكبر من جديد.',
+      'صاحبي يقول كل صباح "اليوم رياضة"، وكل مساء يقول "بكرة أحسن يوم".',
+      'ليش الكتاب ما يكذب؟ لأن كل كلمة فيه مكتوبة وموثّقة.',
+      'ليش المطر ما يحب الكلام الكثير؟ لأنه يفضّل أن "ينزل" على الموضوع مباشرة.',
+      'واحد سأل صاحبه: شو رأيك بالعمل من المنزل؟ قال: ممتاز، بس طولت انتظار الراتب بالبيجامة.',
+      'ليش الموبايل دايم يشحن وما يشبع؟ لأنه يعيش حياة تطبيقات مزدحمة.',
+      'صاحبي قال: عندي خطة لتنظيم وقتي. قلت: شو هي؟ قال: أأجل التنظيم ليوم آخر.',
+      'ليش الفنجان ما يشتكي؟ لأنه دايم يشوف الأمور "نص نص".',
+      'واحد دخل اجتماع وقال: خلونا نكون سريعين، فاستمر الاجتماع ساعتين.',
+      'ليش الثلاجة هادية دايم؟ لأنها متبردة من كل الدراما.',
+      'صاحبي يقول: أنا منظم جدًا، بس فقط في رأسي.',
+      'ليش الوسادة أفضل صديق؟ لأنها ما تخون أبدًا وقت الحاجة.',
+      'واحد سأل: ليش تأخرت؟ قلت: كنت أبحث عن حافز للخروج من السرير.'
+    ]
+  },
+  {
+    id:'fact', label:'معلومة غريبة', icon:'🤯', color:'#E8A33D',
+    items:[
+      'قلب الحلزون يقع فعليًا في منطقة رأسه.',
+      'العسل المحفوظ بشكل صحيح لا يفسد، وعُثر على عسل قديم في مقابر فرعونية وما زال صالحًا.',
+      'الأخطبوط لديه ثلاثة قلوب، لا قلب واحد.',
+      'يُقال إن نمط حليمات اللسان عند كل إنسان فريد، تمامًا كبصمة الإصبع.',
+      'ضوء الشمس يحتاج نحو ثماني دقائق فقط ليصل إلى الأرض.',
+      'فكرة أن النعام يدفن رأسه في الرمل عند الخوف معلومة شائعة لكنها غير صحيحة.',
+      'الموز من الناحية النباتية يُصنَّف كنوع من العشب، وليس شجرة.',
+      'هناك نجوم في الكون أكبر من شمسنا بمئات المرات.',
+      'الفراشات تتذوّق الطعام بأقدامها، لا بفمها.',
+      'هناك نزاع تاريخي بين هولندا وجزر سيلي استمر 335 عامًا دون إطلاق رصاصة واحدة، قبل أن يُختم بمعاهدة سلام رسمية.',
+      'الفراولة ليست توتًا حقيقيًا من الناحية النباتية، بينما الموز يُعتبر توتًا.',
+      'بصمة أنف الكلب فريدة لكل كلب، تمامًا كبصمة الإصبع عند البشر.',
+      'جبل إيفرست يزداد ارتفاعه بضعة ملليمترات كل عام بسبب حركة الصفائح التكتونية.',
+      'أكبر عضو في جسم الإنسان من حيث المساحة هو الجلد.',
+      'القلب البشري ينبض أكثر من مئة ألف نبضة في اليوم الواحد.',
+      'بعض أنواع قنديل البحر قادرة على عكس مراحل نموها بطريقة تجعلها تبدو لا تشيخ.',
+      'الكوالا تنام لساعات طويلة جدًا بسبب طبيعة غذائها قليل الطاقة.',
+      'صوت الرعد يصلنا بعد البرق لأن الضوء أسرع من الصوت في الانتقال.',
+      'أول رسالة نصية في التاريخ كانت تهنئة بعيد الميلاد، أُرسلت في بداية التسعينيات.',
+      'حجم الدماغ البشري لم يتغيّر كثيرًا منذ آلاف السنين، لكن طريقة استخدامه تطورت كثيرًا.'
+    ]
+  },
+  {
+    id:'challenge', label:'تحدي قصير', icon:'🎯', color:'#7B5EA7',
+    items:[
+      'اشرب كوب ماء كامل الآن قبل أي شيء آخر.',
+      'قف وامتد لمدة 30 ثانية.',
+      'اكتب اسم شخص تحبه على ورقة وضعها بمكان تراه يوميًا.',
+      'ابتسم لأول شخص تقابله بعد قراءة هذا.',
+      'اعمل 10 قفزات أو تمارين بسيطة الآن.',
+      'أرسل لشخص رسالة فيها "فكرت فيك اليوم" بدون أي سبب.',
+      'أغلق عينيك وتنفس بعمق 5 مرات متتالية.',
+      'رتّب طاولتك أو مكتبك في دقيقتين فقط.',
+      'اكتب جملة تحفزك واجعلها خلفية هاتفك.',
+      'امتنع عن فتح أي تطبيق آخر لمدة 10 دقائق بعد إغلاق هذا.',
+      'اكتب شكراً لشخص ساعدك هذا الأسبوع.',
+      'اطلع تمشى 5 دقائق وهاتفك بجيبك مقفل.',
+      'رتب خمس ملفات على سطح مكتب جهازك.',
+      'حضّر شيء بسيط بنفسك اليوم بدل طلبه جاهز.',
+      'اكتب ثلاثة أشياء أنت شاكر لها الآن.',
+      'أرسل صورة قديمة حلوة لشخص تحبه.',
+      'جرّب تنفس 4-4-4: شهيق أربع ثوانٍ، حبس أربع، زفير أربع، لمدة دقيقة.',
+      'أطفئ كل الإشعارات لمدة ساعة كاملة.',
+      'اكتب هدف صغير لهذا الأسبوع وعلّقه أمامك.',
+      'اشكر نفسك على شيء أنجزته هذا الأسبوع.'
+    ]
+  },
+  {
+    id:'reply', label:'رد جاهز', icon:'💬', color:'#4F8A5B',
+    items:[
+      'لما يسألك "وين كنت؟": "كنت أحارب الكسل... وهو فاز".',
+      'لما يقول لك "ليش متأخر؟": "الوقت نسبي، وأنا أؤمن بالنظرية بقوة".',
+      'لما يسألك "شو أخبارك؟" ومو ودك تشرح: "تمام، الحمدلله، بسيطة الأمور".',
+      'لما حد يمزح بطريقة ثقيلة: "هه تسلم، فكرة حلوة، بس خلها بينا".',
+      'لما الموضوع يصير محرج وتبي تغيّر الجو: "خلونا نغيّر الموضوع، شفتوا آخر أخبار الطقس؟".',
+      'لما حد يسألك سؤال شخصي وما تبي تجاوب: "هذا سؤال يستحق فنجان قهوة طويل، مو رسالة سريعة".',
+      'لما تبي ترفض دعوة بلطف: "تسلم على الدعوة، بس عندي شي ثبت من قبل، بنعوضها قريب إن شاء الله".',
+      'لما حد ينتقدك بشكل غير بنّاء: "أقدر رأيك، وبفكر فيه".',
+      'لما تبي تطمّن شخص متوتر: "خذ نفس عميق، الموضوع أبسط من اللي بخيالك".',
+      'لما حد يسأل "متى بترد؟" وتبي تماطل بلطف: "قريب إن شاء الله، بس خلني أرتب أفكاري الأول".',
+      'لما حد يلغي خطة بآخر لحظة: "ولا يهمك، خلها لمرة ثانية، الصحة أهم".',
+      'لما تبي تطلب وقت للتفكير: "خلني أرجع لك بهذا الموضوع بعد ما أفكر فيه شوي".',
+      'لما حد يسألك رأيك بشي حساس: "وجهة نظرك مفهومة، وأنا أشوفها من زاوية مختلفة شوي".',
+      'لما تبي تخفف موقف متوتر بهدوء: "خلنا نهدا شوي ونعيد ترتيب الأفكار".',
+      'لما حد يمدحك بشكل مبالغ: "تسلم قلبك، بس فعليًا ما زلت أتعلم".',
+      'لما تبي تطلب مساعدة بدون إحراج: "إذا عندك وقت، بصراحة محتاج مساعدتك بشي صغير".',
+      'لما حد يسألك "أنت زعلان؟": "لا، بس متعب شوي، خلني آخذ نفسي".',
+      'لما تبي توقف نقاش طويل بلطف: "فهمت وجهة نظرك، خلونا نكمل هذا الكلام بوقت ثاني أحسن".',
+      'لما حد يعتذر لك: "ولا يهمك، الموضوع انتهى من جهتي".',
+      'لما تبي تشجع شخص قبل موقف صعب: "أنت قادر عليها، خذها خطوة خطوة".'
+    ]
+  }
+];
+
+const ticket = document.getElementById('ticket');
+const stubIcon = document.getElementById('stubIcon');
+const stubNum = document.getElementById('stubNum');
+const catLabel = document.getElementById('catLabel');
+const contentText = document.getElementById('contentText');
+const spinBtn = document.getElementById('spinBtn');
+const countEl = document.getElementById('count');
+const globalCountEl = document.getElementById('globalCount');
+
+const arabicDigits = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+function toArabicNum(n){ return String(n).split('').map(d => arabicDigits[+d] ?? d).join(''); }
+
+let spins = 0;
+let recentKeys = []; // لتجنب تكرار نفس المحتوى بسرعة
+
+function keyOf(cat,item){ return cat.id + '|' + item; }
+
+function pickRandom(){
+  let cat, item, key, tries = 0;
+  do{
+    cat = categories[Math.floor(Math.random()*categories.length)];
+    item = cat.items[Math.floor(Math.random()*cat.items.length)];
+    key = keyOf(cat,item);
+    tries++;
+  } while(recentKeys.includes(key) && tries < 12);
+  recentKeys.push(key);
+  if(recentKeys.length > 10) recentKeys.shift();
+  return {cat,item};
+}
+
+function render({cat,item}, isFinal){
+  ticket.style.setProperty('--accent', cat.color);
+  stubIcon.textContent = cat.icon;
+  catLabel.textContent = cat.label;
+  contentText.textContent = item;
+  contentText.classList.remove('placeholder');
+  if(isFinal){ stubNum.textContent = toArabicNum(String(spins).padStart(3,'0')); }
+}
+
+// ----- العداد المشترك (قاعدة بيانات بسيطة بين كل المستخدمين) -----
+async function loadGlobalCount(){
+  try{
+    const res = await window.storage.get('lafa:global_spins', true);
+    const n = res ? (parseInt(res.value,10) || 0) : 0;
+    globalCountEl.textContent = '🌍 إجمالي لفّات الجميع: ' + toArabicNum(n);
+  }catch(e){
+    globalCountEl.textContent = '🌍 إجمالي لفّات الجميع: ' + toArabicNum(0);
+  }
+}
+
+async function bumpGlobalCount(){
+  try{
+    let current = 0;
+    try{
+      const res = await window.storage.get('lafa:global_spins', true);
+      current = res ? (parseInt(res.value,10) || 0) : 0;
+    }catch(e){ current = 0; }
+    current += 1;
+    await window.storage.set('lafa:global_spins', String(current), true);
+    globalCountEl.textContent = '🌍 إجمالي لفّات الجميع: ' + toArabicNum(current);
+  }catch(e){
+    // لو التخزين غير متاح، نتجاهل بصمت ونكمل بدون العداد المشترك
+  }
+}
+
+function spin(){
+  spinBtn.disabled = true;
+  ticket.style.transform = 'scale(.97)';
+
+  const delays = [55,55,65,75,90,110,140,180,230];
+  let i = 0;
+
+  function tick(){
+    render(pickRandom(), false);
+    if(i < delays.length - 1){
+      i++;
+      setTimeout(tick, delays[i]);
+    } else {
+      spins++;
+      const final = pickRandom();
+      render(final, true);
+      countEl.textContent = toArabicNum(spins);
+      ticket.style.transform = 'scale(1)';
+      spinBtn.disabled = false;
+      bumpGlobalCount();
+    }
+  }
+  tick();
+}
+
+spinBtn.addEventListener('click', spin);
+loadGlobalCount();
+</script>
+
+</body>
+</html>
